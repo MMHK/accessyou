@@ -1,0 +1,15 @@
+{
+    "name": "mmhk/accessyou",
+    "authors": [
+        {
+            "name": "SamZhou",
+            "email": "sam@mixmedia.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "psr-4": {
+        "MMHK\\AccessYou\\": "src/"
+    }
+}

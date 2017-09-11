@@ -7,7 +7,7 @@ Driver 使用的SMS网关接口 Laravel 插件
 
 - 使用`composer`引入
   ```
-  composer require barryvdh/laravel-ide-helper
+  composer require mmhk/accessyou
   ```
   
 

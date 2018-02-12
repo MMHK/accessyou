@@ -16,7 +16,7 @@ class AccessYou {
         $config;
 
     function __construct($config) {
-        $default_config = \Config::get('sms', array());
+        $default_config = config('sms', array());
 
         $this->config = array_merge($default_config, $config);
     }
@@ -41,7 +41,7 @@ class AccessYou {
                 /**
                  * 过不了验证的记录一下
                  */
-                \Log::error('phone number is empty!');
+                app('log')->error('phone number is empty!');
                 continue;
             }
 
@@ -55,7 +55,7 @@ class AccessYou {
                 }
             }
             if ($this->config['pretend']) {
-                \Log::info('the sms has been sent to number:'. $phone_number);
+                app('log')->info('the sms has been sent to number:'. $phone_number);
             } else {
                 $res = $client->request('GET', self::API_UTF8_URL, [
                     'query' => [
@@ -74,7 +74,7 @@ class AccessYou {
             /**
              * 最后都需要记录SMS的发送记录
              */
-            \Event::fire(new SmsSendEvent([
+            event(new SmsSendEvent([
                 'from_phone' => $this->config['api_phone_number'],
                 'to_phone' => $phone_number,
                 'content' => $content,

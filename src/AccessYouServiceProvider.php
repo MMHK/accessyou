@@ -13,8 +13,12 @@ class AccessYouServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $config_path = base_path('config/sms.php');
+        if (function_exists('config_path')) {
+            $config_path = config_path('sms.php');
+        }
         $this->publishes([
-            __DIR__.'/config.php' => config_path('sms.php')
+            __DIR__.'/config.php' => $config_path
         ], 'config');
     }
 
@@ -25,8 +29,9 @@ class AccessYouServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/config.php', 'sms');
         $this->app->bind('sms', function(){
-            return new AccessYou(\Config::get('sms'));
+            return new AccessYou(config('sms'));
         });
     }
 }
